@@ -4,7 +4,7 @@ from flask import Flask, render_template, request, redirect, url_for
 
 
 # start with the flask instance,
-# this function is "application factory", allows to separate 
+# this function is "application factory", allows to flexibility and scaling
 def create_app():
     app = Flask(__name__)
 
