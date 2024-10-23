@@ -1,4 +1,4 @@
-# this will create a message board utilizing the following: packaging the files, application factory, and navigation menu
+# this will create a message board utilizing the following concept: application factory, blueprint, view functions (navigation menu)
 # reference: https://realpython.com/flask-project/#leverage-blueprints
 from flask import Flask, render_template, request, redirect, url_for
 from board import pages
