@@ -1,15 +1,41 @@
-# blueprint for posting messages
+from flask import Blueprint, render_template, request, redirect, url_for
+from .models import Posts
+from .extensions import db
 
-# As your Flask project grows, you have lots of view functions and other related bits of code that work together. 
-# Instead of adding all these directly to a basic app.py file, you can create blueprints that you register in your application factory
-from flask import Blueprint, render_template
+bp = Blueprint("posts", __name__)
 
-# blueprints are existing view functions
-bp = Blueprint('posts', __name__)
-
-
-@bp.route("/create")
+@bp.route("/create", methods=("GET", "POST")) # GET: Used to display the form to create a post. POST: Used to submit the form and create a new post on the server.
 def create():
-    # contact_info.html leads to a separate page
-    return render_template("posts.create.html")
+    if request.method == "POST":
+        
+        # get data from form
+        author = request.form["author"]
+        message = request.form["message"]
 
+        if author and message:
+            # create a new post instance
+            new_post = Posts(author=author, message=message)
+
+            # Add and commit the new post to the database
+            db.session.add(new_post)
+            db.session.commit()
+
+            # close connection, not necessary with SQLAlchemy
+            # db.session.close()
+
+            # redirect to posts page
+            return redirect(url_for("posts.posts"))
+        
+        else:
+            # display error message
+            return render_template("posts/create.html", error="All fields required")
+
+    return render_template("posts/create.html")
+
+@bp.route("/posts")
+def posts():
+
+    # Query the database for all posts
+    posts = Posts.query.all()  # This fetch all posts from database as a list of Post objects
+
+    return render_template("posts/posts.html", posts=posts)
