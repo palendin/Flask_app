@@ -1,0 +1,42 @@
+<!DOCTYPE html> 
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!--makeke it responsive, adjust layout base on screen size-->
+    <title>Register</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}"> <!--this connects to styles.css, style should be at the <head> wrap-->
+</head>
+<body>
+    {% for category, message in get_flashed_messages(with_categories=True) %} <!--get_flash_messages this retrives all flashes messages stored in the session to the user-->
+    <div class="flash {{ category }}">{{ message }}</div> <!-- class="flash {{ category }}" is used to style the flash message (see styles.css), and "{{ message }}" is used to display the flash message-->
+    {% endfor %}
+    <form method="post"> <!-- form is submitted via POST method (data will be sent to the server, and Flask will process it via request.form) -->
+
+        <!-- Author Entry Box (Text Input):-->
+        <div class="form-group">
+            <label for="username">username</label>
+            <input type="text" name="username" id="username" value="{{ request.form['username'] }}" class="form-control">  
+        </div>
+
+        <!-- The type="text" makes it a text input field. 
+        name="author" is the key that will be used to send the value to the server. {"author": "User's entered name"}
+        id="author" links it to the label, and helps with JavaScript or CSS styling.
+        In value="{{ request.form['author'] }}",'author' refers to the name="author" attribute. request.form is the key from name="author", request.form['author'] retrieves the value
+        value="{{ request.form['author'] }}" ensures that the value the user entered ("John Doe") is retained in the input box
+        form-control class is a Bootstrap class that styles the input to look nice and consistent. -->
+        <ul></ul>
+
+        <!-- Message Entry Box (Text Input):-->
+        <div class="form-group">
+            <label for="password">password</label>
+            <input type='password' name="password" id="password" value="{{ request.form['password'] }}" class="form-control">
+        </div>
+
+        <!-- Submit Button -->
+        <div class="form-group">
+            <input type="submit" value="Create Cccount" class="submit-btn">
+        </div>
+    </form>
+
+</body>
+</html>
