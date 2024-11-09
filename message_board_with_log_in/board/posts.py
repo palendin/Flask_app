@@ -5,11 +5,6 @@ from .extensions import db
 bp = Blueprint("posts", __name__)
 
 
-# Dummy user credentials for login
-users = {
-    "admin": "admin",  # Admin credentials
-    "guest": "guest"   # Guest credentials
-}
 @bp.route("/create", methods=("GET", "POST")) # GET: Used to display the form to create a post. POST: Used to submit the form and create a new post on the server.
 def create():
     

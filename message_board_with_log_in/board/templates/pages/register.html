@@ -10,12 +10,15 @@
     {% for category, message in get_flashed_messages(with_categories=True) %} <!--get_flash_messages this retrives all flashes messages stored in the session to the user-->
     <div class="flash {{ category }}">{{ message }}</div> <!-- class="flash {{ category }}" is used to style the flash message (see styles.css), and "{{ message }}" is used to display the flash message-->
     {% endfor %}
+
+
+
     <form method="post"> <!-- form is submitted via POST method (data will be sent to the server, and Flask will process it via request.form) -->
 
         <!-- Author Entry Box (Text Input):-->
         <div class="form-group">
             <label for="username">username</label>
-            <input type="text" name="username" id="username" value="{{ request.form['username'] }}" class="form-control">  
+            <input type="text" name="username" id="username" value="{{ request.form.get('username', '')}}" class="form-control">  
         </div>
 
         <!-- The type="text" makes it a text input field. 
@@ -29,12 +32,12 @@
         <!-- Message Entry Box (Text Input):-->
         <div class="form-group">
             <label for="password">password</label>
-            <input type='password' name="password" id="password" value="{{ request.form['password'] }}" class="form-control">
+            <input type='password' name="password" id="password" value="{{ request.form.get('password', '') }}" class="form-control">
         </div>
 
         <!-- Submit Button -->
         <div class="form-group">
-            <input type="submit" value="Create Cccount" class="submit-btn">
+            <input type="submit" value="Create Account" class="submit-btn">
         </div>
     </form>
 

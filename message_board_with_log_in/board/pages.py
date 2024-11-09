@@ -7,12 +7,6 @@ from .extensions import db
 # blueprints are existing view functions
 bp = Blueprint('pages', __name__)
 
-# Dummy user credentials for login
-users = {
-    "admin": "admin",  # Admin credentials
-    "guest": "guest"   # Guest credentials
-}
-
 @bp.route('/')
 def index():
     if 'username' in session:
